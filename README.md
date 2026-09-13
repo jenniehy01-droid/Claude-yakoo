@@ -34,6 +34,7 @@ src/yakoo_sim/                계산 엔진 Python 패키지
   report.py                     검증된 JSON만 읽어 한국어 보고서 작성
   cli.py                        실행 진입점
 scripts/                       예제 데이터 생성, 파일럿 전/후 비교 스크립트
+dashboard/                     로컬 대시보드 (Flask, 계산 엔진 직접 호출)
 tests/                         pytest 단위 테스트
 output/                        실행 결과 (manifest/손익/민감도/검증/보고서)
 .claude/agents/                역할별 서브에이전트 정의
@@ -109,6 +110,40 @@ cat output/pilot_impact_comparison.md
 - 모든 시나리오의 증분이익(초기비용 제외)이 파일럿 반영 후 하향 조정된다
   (초기 가정이 파일럿 실측 전환율보다 낙관적이었기 때문 — 예제 데이터에서
   의도적으로 재현한 상황).
+
+## 로컬 대시보드 (1차 버전)
+
+`dashboard/app.py` 는 위 계산 엔진을 **직접 호출**하는 Flask 기반 로컬 웹
+대시보드다. 손익 계산식은 화면 코드에 전혀 다시 구현하지 않았고,
+`yakoo_sim.calculator.compute_scenario_pnl / compute_all_scenarios`,
+`yakoo_sim.scenarios.rank_scenarios_by_incremental_profit`,
+`yakoo_sim.validation.validate_assumptions` 를 그대로 불러와 쓴다.
+
+```bash
+pip install -r dashboard/requirements-dashboard.txt
+PYTHONPATH=src python3 dashboard/app.py
+# 브라우저에서 http://127.0.0.1:5050 접속
+```
+
+기능:
+- 지역 / 운영 규모(FM 수) / 보상 수준과 핵심 가정값을 화면에서 수정하고
+  "계산 실행"을 누르면 그 조건으로 즉시 재계산한다.
+- **기준(Base) 가정 파일**과 **비교(Compare) 가정 파일**을 각각 선택하면
+  파일럿 실적 반영 전/후 손익을 나란히 비교할 수 있다 (예:
+  `assumptions.json` vs `assumptions_after_pilot_2026-12-01.json`).
+- 핵심 손익 지표(매출/이익/증분이익, 초기 제작비 포함·제외 모두 표시)와
+  전체 시나리오 증분이익 비교 막대그래프(matplotlib, 서버 렌더링 후
+  base64 임베드 — 브라우저가 외부 CDN에 접속할 필요 없음)를 보여준다.
+- 화면에서 값을 기준 파일과 다르게 입력하면 "가정(대시보드 수정)"으로
+  명확히 구분 표시하고, 이 결과는 "확대 권고의 근거로 사용할 수 없다"고
+  경고한다 — 근거 없는 임시값과 검증된 실제/추정/가정 값을 섞지 않기 위함.
+- 상단에 가상 데이터 안내와 "외부 API/DB 미연결" 안내를 항상 표시한다.
+
+로컬 전용 1차 버전이며, 외부 인터넷 연결 없이 완전히 오프라인으로 동작한다
+(그래프도 서버에서 이미지로 그려서 내려주므로 브라우저의 외부 접속이
+필요 없다). 그래프에 한글이 깨져 보이면(네모(□)로 표시) 한글 폰트가 설치돼
+있지 않은 것이므로, Linux는 `sudo apt install fonts-nanum`, macOS/Windows는
+보통 기본 한글 폰트가 있어 별도 설치가 필요 없다.
 
 ## 데이터 검증 및 확대 권고 보류 규칙
 
