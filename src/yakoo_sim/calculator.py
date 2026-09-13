@@ -103,6 +103,24 @@ def incremental_revenue(pnl: ScenarioPnL) -> float:
     return pnl.treatment.revenue_total - pnl.control.revenue_total
 
 
+def incremental_new_customers(pnl: ScenarioPnL) -> float:
+    """야쿠헌터즈(실험군) 신규 구매자 - 일반판촉(비교군) 신규 구매자."""
+    treatment = pnl.treatment.new_customers_tourist + pnl.treatment.new_customers_domestic
+    control = pnl.control.new_customers_tourist + pnl.control.new_customers_domestic
+    return treatment - control
+
+
+def incremental_cost(pnl: ScenarioPnL, include_initial: bool = True) -> float:
+    """일반판촉 대비 추가로 들어가는 프로그램 비용.
+
+    include_initial=True 이면 실험군에만 발생하는 1회성 초기 제작비를 포함한다.
+    """
+    treatment_cost = pnl.treatment.cost_excl_initial
+    if include_initial:
+        treatment_cost += pnl.treatment.initial_cost_applied
+    return treatment_cost - pnl.control.cost_excl_initial
+
+
 def compute_incremental_cac(pnl: ScenarioPnL) -> float | None:
     """증분 CAC(고객 1명 추가 획득당 순증 비용).
 

@@ -1,0 +1,5 @@
+criterion_id,criterion,definition,threshold_value,threshold_unit,direction,measurement,note
+incremental_purchase,일반 판촉 대비 추가 구매,실험군 첫구매율 - 비교군 첫구매율 (관찰기간 완료 고객 기준),5,%p,이상,pilot_conversion_gap,파일럿 전환 실적 CSV로 산출 가능
+repeat_30d,30일 재구매,첫 구매 후 30일 이내 재구매한 고객 비율,15,%,이상,미측정,현재 관찰기간은 90일 기준. 30일 지표는 별도 수집 필요
+actual_cost,실제 비용 (전환 1건당),실제 지급된 보상비 + 운영비 합계 / 신규 구매자 수,8000,원,이하,미측정,실제 정산 데이터 미연결
+delivery_impact,기존 배송 영향,기존 정기배송 고객의 이탈률 변화,0,%p,이하,미측정,기존 고객 배송 데이터 미연결. 악화가 없어야 함

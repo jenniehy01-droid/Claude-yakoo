@@ -1,6 +1,8 @@
 from yakoo_sim.calculator import (
     compute_incremental_cac,
     compute_scenario_pnl,
+    incremental_cost,
+    incremental_new_customers,
     incremental_revenue,
 )
 from yakoo_sim.models import Assumption, Region, RewardLevel, Scenario
@@ -133,6 +135,35 @@ def test_incremental_revenue_matches_group_difference():
     pnl = compute_scenario_pnl(scenario, region, make_reward_level(), make_assumptions(), "v1")
     assert incremental_revenue(pnl) == pnl.treatment.revenue_total - pnl.control.revenue_total
     assert incremental_revenue(pnl) > 0  # 실험군 전환율이 더 높게 설정된 기본 가정에서는 매출도 더 큼
+
+
+def test_incremental_new_customers_matches_group_difference():
+    region = make_region()
+    scenario = make_scenario(fm_count=10)
+    pnl = compute_scenario_pnl(scenario, region, make_reward_level(), make_assumptions(), "v1")
+    treatment = pnl.treatment.new_customers_tourist + pnl.treatment.new_customers_domestic
+    control = pnl.control.new_customers_tourist + pnl.control.new_customers_domestic
+    assert incremental_new_customers(pnl) == treatment - control
+    assert incremental_new_customers(pnl) > 0
+
+
+def test_incremental_cost_includes_initial_only_when_requested():
+    region = make_region()
+    scenario = make_scenario(fm_count=10)
+    pnl = compute_scenario_pnl(scenario, region, make_reward_level(), make_assumptions(), "v1")
+    excl = incremental_cost(pnl, include_initial=False)
+    incl = incremental_cost(pnl, include_initial=True)
+    assert excl == pnl.treatment.cost_excl_initial - pnl.control.cost_excl_initial
+    assert abs((incl - excl) - pnl.treatment.initial_cost_applied) < 1e-9
+
+
+def test_incremental_cost_and_profit_are_consistent():
+    """추가손익(초기비용 포함) == 추가매출 - 추가비용(초기비용 포함) 이어야 한다."""
+    region = make_region()
+    scenario = make_scenario(fm_count=7)
+    pnl = compute_scenario_pnl(scenario, region, make_reward_level(), make_assumptions(), "v1")
+    expected = incremental_revenue(pnl) - incremental_cost(pnl, include_initial=True)
+    assert abs(expected - pnl.incremental_profit_incl_initial) < 1e-9
 
 
 def test_incremental_cac_positive_when_treatment_costs_more_per_extra_customer():
