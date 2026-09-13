@@ -1,4 +1,8 @@
-from yakoo_sim.calculator import compute_scenario_pnl
+from yakoo_sim.calculator import (
+    compute_incremental_cac,
+    compute_scenario_pnl,
+    incremental_revenue,
+)
 from yakoo_sim.models import Assumption, Region, RewardLevel, Scenario
 
 
@@ -121,6 +125,40 @@ def test_missing_assumption_raises():
         assert False, "should have raised"
     except KeyError:
         pass
+
+
+def test_incremental_revenue_matches_group_difference():
+    region = make_region()
+    scenario = make_scenario(fm_count=5)
+    pnl = compute_scenario_pnl(scenario, region, make_reward_level(), make_assumptions(), "v1")
+    assert incremental_revenue(pnl) == pnl.treatment.revenue_total - pnl.control.revenue_total
+    assert incremental_revenue(pnl) > 0  # 실험군 전환율이 더 높게 설정된 기본 가정에서는 매출도 더 큼
+
+
+def test_incremental_cac_positive_when_treatment_costs_more_per_extra_customer():
+    region = make_region()
+    scenario = make_scenario(fm_count=10)
+    assumptions = make_assumptions()
+    # 실험군 보상비를 비교군 전환당비용보다 크게 설정 -> 추가 고객 1명당 비용이 순증가해야 함
+    pnl = compute_scenario_pnl(scenario, region, make_reward_level(cost=20000.0), assumptions, "v1")
+    cac = compute_incremental_cac(pnl)
+    assert cac is not None
+    t_customers = pnl.treatment.new_customers_tourist + pnl.treatment.new_customers_domestic
+    c_customers = pnl.control.new_customers_tourist + pnl.control.new_customers_domestic
+    expected = (pnl.treatment.cost_excl_initial - pnl.control.cost_excl_initial) / (t_customers - c_customers)
+    assert abs(cac - expected) < 1e-9
+
+
+def test_incremental_cac_none_when_no_extra_customers():
+    region = make_region()
+    scenario = make_scenario(fm_count=10)
+    # 실험군과 비교군의 전환율을 동일하게 만들면 추가 고객이 0명 -> CAC 정의 불가
+    assumptions = make_assumptions({
+        "conversion_rate_domestic_treatment": 0.10,
+        "conversion_rate_tourist_treatment": 0.05,
+    })
+    pnl = compute_scenario_pnl(scenario, region, make_reward_level(), assumptions, "v1")
+    assert compute_incremental_cac(pnl) is None
 
 
 def test_higher_conversion_rate_increases_revenue():

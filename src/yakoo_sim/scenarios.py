@@ -79,3 +79,62 @@ def run_full_sensitivity(
         )
         for key in keys
     }
+
+
+def rank_drivers_by_swing(sensitivity_by_key: dict[str, list[dict]], top_n: int = 3) -> list[dict]:
+    """민감도 분석 결과(run_full_sensitivity)에서, 증분이익을 가장 크게 흔드는
+    가정값 상위 top_n개를 순위화한다. 이미 계산된 민감도 수치의 최댓값-최솟값
+    (swing)을 비교할 뿐, 새로운 손익 공식을 만들지 않는다."""
+    ranked = []
+    for key, rows in sensitivity_by_key.items():
+        values = [row["incremental_profit_excl_initial"] for row in rows]
+        ranked.append({
+            "key": key,
+            "swing": max(values) - min(values),
+            "min_incremental_profit": min(values),
+            "max_incremental_profit": max(values),
+        })
+    ranked.sort(key=lambda r: r["swing"], reverse=True)
+    return ranked[:top_n]
+
+
+BAND_KEYS = (
+    "conversion_rate_domestic_treatment",
+    "conversion_rate_tourist_treatment",
+    "repeat_purchase_rate_domestic",
+)
+
+# (밴드 이름, 수요 관련 가정값에 적용할 변화율) — 결정론적 격자이며 확률/난수를 쓰지 않는다.
+BAND_DEFINITIONS = (("보수", -0.20), ("중간", 0.0), ("낙관", 0.20))
+
+
+def compute_scenario_bands(
+    scenario: Scenario,
+    region: Region,
+    reward_level: RewardLevel,
+    base_assumptions: dict[str, Assumption],
+    assumptions_version: str,
+    keys: tuple[str, ...] = BAND_KEYS,
+    band_definitions: tuple[tuple[str, float], ...] = BAND_DEFINITIONS,
+) -> dict[str, ScenarioPnL]:
+    """수요 관련 핵심 가정(전환율/재구매율)을 함께 ±20% 흔들어 보수/중간/낙관
+    3개 밴드의 손익을 계산한다. compute_scenario_pnl 을 그대로 재사용하며,
+    가정을 옮기는 방식은 run_sensitivity_for_scenario와 동일한 결정론적
+    격자 방식이다 (확률/난수 미사용)."""
+    bands: dict[str, ScenarioPnL] = {}
+    for band_name, delta in band_definitions:
+        assumptions = deepcopy(base_assumptions)
+        for key in keys:
+            if key not in assumptions:
+                continue
+            original = assumptions[key]
+            assumptions[key] = Assumption(
+                key=key, value=original.value * (1 + delta), unit=original.unit,
+                value_type=original.value_type,
+                source=original.source + f" [{band_name} 시나리오 {delta:+.0%}]",
+                period=original.period,
+            )
+        bands[band_name] = compute_scenario_pnl(
+            scenario, region, reward_level, assumptions, f"{assumptions_version}#{band_name}"
+        )
+    return bands

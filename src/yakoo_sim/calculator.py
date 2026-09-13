@@ -96,6 +96,31 @@ def compute_scenario_pnl(
     )
 
 
+def incremental_revenue(pnl: ScenarioPnL) -> float:
+    """야쿠헌터즈(실험군) 매출 - 일반판촉(비교군) 매출. 두 그룹 모두 이미
+    compute_scenario_pnl 이 계산한 값이므로 새 손익 공식이 아니라 그 차이만
+    반환한다."""
+    return pnl.treatment.revenue_total - pnl.control.revenue_total
+
+
+def compute_incremental_cac(pnl: ScenarioPnL) -> float | None:
+    """증분 CAC(고객 1명 추가 획득당 순증 비용).
+
+    (야쿠헌터즈 비용 - 일반판촉 비용) / (야쿠헌터즈 신규고객수 - 일반판촉 신규고객수)
+
+    야쿠헌터즈가 일반판촉보다 신규 고객을 더 많이 확보하지 못하면(분모가 0
+    이하) 정의되지 않으므로 None을 반환한다 — 억지로 계산해 오해를 부르는
+    숫자를 만들지 않는다.
+    """
+    treatment_customers = pnl.treatment.new_customers_tourist + pnl.treatment.new_customers_domestic
+    control_customers = pnl.control.new_customers_tourist + pnl.control.new_customers_domestic
+    delta_customers = treatment_customers - control_customers
+    if delta_customers <= 0:
+        return None
+    delta_cost = pnl.treatment.cost_excl_initial - pnl.control.cost_excl_initial
+    return delta_cost / delta_customers
+
+
 def compute_all_scenarios(
     scenarios: list[Scenario],
     regions: dict[str, Region],

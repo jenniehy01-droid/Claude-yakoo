@@ -1,3 +1,7 @@
 __pycache__/
 *.pyc
 .pytest_cache/
+
+# 대시보드에서 사용자가 업로드/생성한 파일 (실행 시 로컬에 생성됨, 저장소에는 포함하지 않음)
+data/input/pilot/dashboard_uploads/
+data/input/assumptions_dashboard_pilot_*.json

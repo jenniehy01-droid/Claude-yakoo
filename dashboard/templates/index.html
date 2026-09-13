@@ -2,212 +2,490 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<title>야쿠헌터즈 사업성 시뮬레이션 대시보드</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>야쿠헌터즈 사업성 시뮬레이터</title>
 <style>
-  body { font-family: -apple-system, "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
-         max-width: 1080px; margin: 24px auto; padding: 0 16px; color: #1b1f23; background: #fafafa; }
-  h1 { font-size: 1.4rem; }
-  h2 { font-size: 1.1rem; margin-top: 2rem; border-bottom: 1px solid #ddd; padding-bottom: 4px; }
-  .banner { padding: 10px 14px; border-radius: 6px; margin: 10px 0; font-size: 0.92rem; }
-  .banner.dummy { background: #fff4e0; border: 1px solid #f0c36d; }
-  .banner.disconnected { background: #e9edf5; border: 1px solid #9fb3d6; }
-  .banner.ok { background: #e6f6ea; border: 1px solid #7cc98f; }
-  .banner.blocked { background: #fdecea; border: 1px solid #e57373; font-weight: bold; }
-  .banner.warn { background: #fff8e1; border: 1px solid #ffca28; }
-  fieldset { border: 1px solid #ddd; border-radius: 8px; margin-bottom: 14px; padding: 12px 16px; background: #fff; }
-  legend { font-weight: bold; padding: 0 6px; }
-  label { display: block; font-size: 0.85rem; margin-top: 8px; color: #444; }
-  select, input[type=number] { padding: 5px 8px; margin-top: 2px; width: 100%; max-width: 380px;
-                                box-sizing: border-box; }
-  table { border-collapse: collapse; width: 100%; margin-top: 8px; font-size: 0.86rem; background: #fff; }
-  th, td { border: 1px solid #e2e2e2; padding: 6px 8px; text-align: left; }
-  th { background: #f2f2f2; }
-  .num { text-align: right; }
-  .badge { display: inline-block; padding: 1px 7px; border-radius: 10px; font-size: 0.72rem; color: #fff; }
-  .badge.실제 { background: #2e7d32; }
-  .badge.추정 { background: #ef6c00; }
-  .badge.가정 { background: #757575; }
-  .badge.override { background: #ad1457; }
-  .kpi-grid { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 10px; }
-  .kpi-card { flex: 1 1 220px; border: 1px solid #ddd; border-radius: 8px; padding: 10px 14px; background: #fff; }
-  .kpi-card .value { font-size: 1.25rem; font-weight: bold; }
-  .kpi-card .label { font-size: 0.78rem; color: #666; }
-  .run-btn { background: #3b6fd6; color: #fff; border: none; padding: 10px 22px; border-radius: 6px;
-             font-size: 1rem; cursor: pointer; margin-top: 14px; }
-  .run-btn:hover { background: #2c58b0; }
-  .two-col { display: flex; gap: 24px; flex-wrap: wrap; }
-  .two-col > div { flex: 1 1 320px; }
-  code { background: #eee; padding: 1px 5px; border-radius: 4px; }
+  :root {
+    --green-dark: #0f5132;
+    --green-mid: #1e7e4b;
+    --green-pale: #e7f3ec;
+    --bg: #f7faf8;
+    --card: #ffffff;
+    --text: #1b2420;
+    --muted: #5b6a63;
+    --border: #dde5e0;
+    --positive: #0f5132;
+    --negative: #a4241a;
+    --neutral: #3d5a6c;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, "Segoe UI", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+    background: var(--bg); color: var(--text); margin: 0; font-size: 17px; line-height: 1.5;
+  }
+  .wrap { max-width: 1360px; margin: 0 auto; padding: 0 20px 60px; }
+
+  header.topbar { background: var(--green-dark); color: #fff; padding: 18px 20px; }
+  header.topbar .inner { max-width: 1360px; margin: 0 auto; display: flex; flex-wrap: wrap;
+                          align-items: center; justify-content: space-between; gap: 12px; }
+  header.topbar h1 { font-size: 1.55rem; margin: 0; font-weight: 800; }
+  .meta-strip { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; font-size: 0.92rem; }
+  .meta-strip select { background: rgba(255,255,255,0.12); color: #fff; border: 1px solid rgba(255,255,255,0.4);
+                        border-radius: 6px; padding: 5px 8px; }
+  .meta-strip select option { color: #111; }
+  .pill { display: inline-block; padding: 3px 12px; border-radius: 999px; font-size: 0.85rem; font-weight: 700; }
+  .pill.dummy { background: #ffe9b3; color: #7a5200; }
+  .pill.disconnected { background: rgba(255,255,255,0.85); color: var(--green-dark); }
+
+  nav.tabs { display: flex; gap: 6px; margin: 22px 0 18px; border-bottom: 2px solid var(--border); }
+  nav.tabs button { font-size: 1.05rem; font-weight: 700; padding: 12px 22px; border: none; background: none;
+                     color: var(--muted); cursor: pointer; border-bottom: 3px solid transparent; }
+  nav.tabs button.active { color: var(--green-dark); border-bottom-color: var(--green-dark); }
+
+  .layout { display: grid; grid-template-columns: 340px 1fr; gap: 26px; align-items: start; }
+  @media (max-width: 880px) { .layout { grid-template-columns: 1fr; } }
+
+  .panel { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 22px; }
+  .panel h2 { font-size: 1.05rem; margin: 0 0 14px; color: var(--green-dark); }
+
+  label.field-label { display: block; font-weight: 700; font-size: 0.95rem; margin: 16px 0 4px; }
+  label.field-label:first-of-type { margin-top: 0; }
+  .denom { font-size: 0.8rem; color: var(--muted); margin: 2px 0 0; }
+  select, input[type=number], input[type=date], input[type=file] {
+    width: 100%; padding: 10px 12px; font-size: 1rem; border: 1px solid var(--border);
+    border-radius: 8px; background: #fff; color: var(--text);
+  }
+  .pct-input-row, .money-input-row { display: flex; align-items: center; gap: 8px; }
+  .pct-input-row input, .money-input-row input { flex: 1; }
+  .unit-suffix { font-weight: 700; color: var(--muted); white-space: nowrap; }
+  .region-hint { font-size: 0.82rem; color: var(--muted); background: var(--green-pale); border-radius: 8px;
+                 padding: 8px 10px; margin-top: 6px; }
+
+  details.more-settings { margin-top: 18px; border-top: 1px dashed var(--border); padding-top: 10px; }
+  details.more-settings summary { cursor: pointer; font-weight: 700; color: var(--green-mid); padding: 6px 0; }
+  .detail-row { margin-top: 14px; }
+  .detail-row .row-label { font-size: 0.88rem; font-weight: 600; }
+
+  .run-btn { width: 100%; margin-top: 20px; background: var(--green-dark); color: #fff; border: none;
+             padding: 14px; border-radius: 10px; font-size: 1.1rem; font-weight: 800; cursor: pointer; }
+  .run-btn:hover { background: var(--green-mid); }
+  .quick-btn { font-size: 0.8rem; padding: 4px 8px; border-radius: 6px; border: 1px solid var(--border);
+               background: #fff; cursor: pointer; color: var(--green-dark); font-weight: 700; }
+  .preset-row { display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; }
+
+  .stale-banner { display: flex; align-items: center; gap: 8px; background: #fff4e0; border: 1px solid #e0a53a;
+                  color: #6b4a00; padding: 10px 14px; border-radius: 10px; font-weight: 700; margin-bottom: 14px; }
+  .results.stale { opacity: 0.42; filter: grayscale(35%); transition: opacity .15s; }
+
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; margin: 4px 0 22px; }
+  .kpi-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px;
+              border-top: 6px solid var(--muted); min-width: 0; }
+  .kpi-card.pos { border-top-color: var(--positive); }
+  .kpi-card.neg { border-top-color: var(--negative); }
+  .kpi-card.neutral { border-top-color: var(--neutral); }
+  .kpi-label { font-size: 0.86rem; color: var(--muted); font-weight: 700; }
+  .kpi-value { font-size: 2rem; font-weight: 800; margin-top: 6px; word-break: keep-all; line-height: 1.2; }
+  .kpi-card.pos .kpi-value { color: var(--positive); }
+  .kpi-card.neg .kpi-value { color: var(--negative); }
+  .kpi-card.neutral .kpi-value { color: var(--neutral); }
+  .kpi-sub { font-size: 0.85rem; color: var(--muted); margin-top: 6px; }
+
+  .chart-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px;
+                margin-bottom: 22px; }
+  .chart-card img { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+  .band-summary { text-align: center; font-size: 0.95rem; color: var(--muted); margin-top: 10px; }
+
+  .bottom-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 880px) { .bottom-grid { grid-template-columns: 1fr; } }
+  .driver-list { list-style: none; margin: 0; padding: 0; }
+  .driver-list li { padding: 12px 0; border-bottom: 1px solid var(--border); }
+  .driver-list li:last-child { border-bottom: none; }
+  .driver-rank { display: inline-block; width: 24px; height: 24px; border-radius: 50%; background: var(--green-dark);
+                 color: #fff; text-align: center; line-height: 24px; font-size: 0.8rem; font-weight: 800; margin-right: 8px; }
+  .driver-swing { color: var(--muted); font-size: 0.86rem; margin-left: 32px; }
+
+  table.assump-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  table.assump-table th, table.assump-table td { padding: 7px 8px; border-bottom: 1px solid var(--border);
+                                                   text-align: left; word-break: break-word; }
+  table.assump-table th { color: var(--muted); font-weight: 700; }
+  .badge { display: inline-block; padding: 2px 9px; border-radius: 999px; font-size: 0.72rem; font-weight: 800; color: #fff; }
+  .badge.실제 { background: #1e7e4b; }
+  .badge.추정 { background: #c07a1e; }
+  .badge.가정 { background: #6b7280; }
+  .badge.가정_대시보드_수정, .badge.가정_대시보드_입력 { background: #a4241a; }
+
+  .banner { padding: 12px 16px; border-radius: 10px; margin-bottom: 14px; font-size: 0.95rem; }
+  .banner.warn { background: #fff4e0; border: 1px solid #e0a53a; color: #6b4a00; }
+  .banner.blocked { background: #fdecea; border: 1px solid #e57373; color: #7a1f1a; font-weight: 700; }
+  .banner.ok { background: #e7f3ec; border: 1px solid #7cc98f; color: #0f5132; }
+  .banner.info { background: #eef3fb; border: 1px solid #9fb3d6; color: #223a5e; }
+  .caveat { font-size: 0.85rem; color: var(--muted); margin-top: 6px; }
+
+  .upload-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  @media (max-width: 700px) { .upload-grid { grid-template-columns: 1fr; } }
+  .csv-hint { font-size: 0.78rem; color: var(--muted); margin-top: 6px; }
+  .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 18px; }
+  @media (max-width: 880px) { .compare-grid { grid-template-columns: 1fr; } }
+
+  [hidden] { display: none !important; }
+  img, table { max-width: 100%; }
+  .overflow-x { overflow-x: auto; }
 </style>
 </head>
 <body>
 
-<h1>야쿠헌터즈 사업성 시뮬레이션 대시보드 (로컬 · 1차 버전)</h1>
-
-<div class="banner dummy">
-  ⚠️ <b>가상 데이터 안내</b>: 아래 계산은 <code>data/input/</code> 의 가상(더미) 예제 데이터를 기반으로 합니다. 실제 사업/고객 데이터가 아닙니다.
-</div>
-<div class="banner disconnected">
-  🔌 <b>실 데이터 연결 없음</b>: 이 대시보드는 외부 API/사내 DB에 연결되어 있지 않습니다. 로컬 파일(<code>data/input/</code>)만 읽습니다.
-</div>
-<div class="banner ok">
-  🧮 계산은 <code>src/yakoo_sim</code> 의 검증된(pytest 통과) 계산기 함수를 그대로 호출합니다 — 이 화면 코드는 손익 계산식을 다시 구현하지 않습니다.
-  (계산 프로그램 버전 <code>{{ calc_version }}</code> · 예제데이터 난수시드 <code>{{ random_seed }}</code>)
-</div>
-
-<form method="post" id="mainForm">
-  <fieldset>
-    <legend>1. 가정(assumption) 세트 선택 — 파일럿 반영 전/후 비교</legend>
-    <div class="two-col">
-      <div>
-        <label for="base_assumptions_file">기준(Base) 가정 파일</label>
-        <select name="base_assumptions_file" id="base_assumptions_file">
-          {% for path, label in assumption_files %}
-          <option value="{{ path }}" {% if path == form_state.base_assumptions_file %}selected{% endif %}>{{ label }}</option>
-          {% endfor %}
-        </select>
-      </div>
-      <div>
-        <label for="compare_assumptions_file">비교(Compare) 가정 파일 — 선택 시 전/후 비교 표시</label>
-        <select name="compare_assumptions_file" id="compare_assumptions_file">
-          <option value="" {% if not form_state.compare_assumptions_file %}selected{% endif %}>없음 (단일 세트만 계산)</option>
-          {% for path, label in assumption_files %}
-          <option value="{{ path }}" {% if path == form_state.compare_assumptions_file %}selected{% endif %}>{{ label }}</option>
-          {% endfor %}
-        </select>
-      </div>
+<header class="topbar">
+  <div class="inner">
+    <h1>🌿 야쿠헌터즈 사업성 시뮬레이터</h1>
+    <div class="meta-strip">
+      <span>데이터 기준일 <b>{{ as_of_date }}</b></span>
+      <span class="pill dummy">⚠ 가상 데이터</span>
+      <span class="pill disconnected">실 데이터 미연결</span>
     </div>
-  </fieldset>
+  </div>
+</header>
 
-  <fieldset>
-    <legend>2. 시나리오 조건 (지역 · 운영 규모 · 보상 수준)</legend>
-    <label for="scenario_preset">빠른 불러오기 (기존 시나리오 → 아래 조건 자동 채움)</label>
-    <select id="scenario_preset" onchange="applyPreset(this.value)">
-      <option value="">— 직접 입력 —</option>
-      {% for s in scenarios %}
-      <option value="{{ s.scenario_id }}">{{ s.label }}</option>
+<div class="wrap">
+
+<nav class="tabs">
+  <button type="button" id="tabbtn-simulate" onclick="showTab('simulate')">📊 시뮬레이터</button>
+  <button type="button" id="tabbtn-pilot" onclick="showTab('pilot')">📁 파일럿 실적 비교</button>
+</nav>
+
+<!-- =========================== TAB 1: 시뮬레이터 =========================== -->
+<section id="tab-simulate">
+  <div class="layout">
+    <form class="panel" id="simForm" method="post">
+      <input type="hidden" name="form_name" value="simulate">
+      <h2>운영 조건 입력</h2>
+
+      <label class="field-label" for="assumptions_file">가정 데이터 버전</label>
+      <select name="assumptions_file" id="assumptions_file" onchange="this.form.submit()">
+        {% for path, label in assumption_files %}
+        <option value="{{ path }}" {% if path == form_state.assumptions_file %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+      </select>
+
+      <label class="field-label" for="region_id">지역</label>
+      <select name="region_id" id="region_id" onchange="onRegionChange()">
+        {% for rid, r in regions.items() %}
+        <option value="{{ rid }}" {% if rid == form_state.region_id %}selected{% endif %}>{{ r.region_name }}</option>
+        {% endfor %}
+      </select>
+      <div class="region-hint" id="regionHint"></div>
+
+      <label class="field-label" for="fm_count">참여 인원 (투입 프레시매니저 수)</label>
+      <input type="number" name="fm_count" id="fm_count" min="1" step="1" value="{{ form_state.fm_count }}">
+
+      {% for row in top_rows %}
+      <label class="field-label" for="in_{{ row.key }}">{{ row.label }}</label>
+      <div class="pct-input-row">
+        <input type="number" step="0.1" min="0" max="100" name="assumption__{{ row.key }}" id="in_{{ row.key }}"
+               value="{{ row.form_value }}">
+        <span class="unit-suffix">%</span>
+      </div>
+      {% if row.denom %}<p class="denom">{{ row.denom }}</p>{% endif %}
       {% endfor %}
-    </select>
 
-    <div class="two-col">
-      <div>
-        <label for="region_id">지역</label>
-        <select name="region_id" id="region_id">
-          {% for rid, r in regions.items() %}
-          <option value="{{ rid }}" {% if rid == form_state.region_id %}selected{% endif %}>{{ r.region_name }} (관광객비중 {{ '%.0f'|format(r.tourist_share*100) }}%)</option>
-          {% endfor %}
-        </select>
-
-        <label for="fm_count">운영 규모 — 투입 FM 수</label>
-        <input type="number" name="fm_count" id="fm_count" min="1" step="1" value="{{ form_state.fm_count }}">
+      <label class="field-label" for="reward_cost">보상비 (전환 1건당 지급액)</label>
+      <div class="money-input-row">
+        <input type="number" step="100" min="0" name="reward_cost" id="reward_cost" value="{{ form_state.reward_cost }}">
+        <span class="unit-suffix">원/건</span>
       </div>
-      <div>
-        <label for="reward_level_id">보상 수준</label>
-        <select name="reward_level_id" id="reward_level_id">
-          {% for rlid, rl in reward_levels.items() %}
-          <option value="{{ rlid }}" {% if rlid == form_state.reward_level_id %}selected{% endif %}>{{ rl.label }} (전환당 {{ rl.reward_cost_per_conversion|won }})</option>
-          {% endfor %}
-        </select>
-      </div>
-    </div>
-  </fieldset>
+      <div class="preset-row" id="rewardPresetRow"></div>
 
-  <fieldset>
-    <legend>3. 가정값 확인 · 수정 (기준 가정 파일 기준값 — 필요 시 임시로 덮어쓰기)</legend>
-    <table>
-      <tr><th>항목</th><th>기준 파일 값</th><th>구분</th><th>출처 / 기준기간</th><th>이번 계산에 사용할 값</th></tr>
-      {% for row in assumption_rows %}
-      <tr>
-        <td>{{ row.label }}</td>
-        <td class="num">{{ row.value }}{% if row.unit == 'KRW' %}원{% endif %}</td>
-        <td><span class="badge {{ row.value_type }}">{{ row.value_type }}</span></td>
-        <td>{{ row.source }}<br><small>{{ row.period }}</small></td>
-        <td><input type="number" step="any" name="assumption__{{ row.key }}" value="{{ row.form_value }}"></td>
-      </tr>
-      {% endfor %}
-    </table>
-    <p style="font-size:0.8rem;color:#666;">
-      값을 기준 파일과 다르게 입력하면 이번 계산에서만 "가정(대시보드 수정)"으로 표시되며,
-      기준 파일의 실제/추정/가정 구분과 절대 섞이지 않습니다.
-    </p>
-  </fieldset>
-
-  <button type="submit" class="run-btn">▶ 계산 실행</button>
-</form>
-
-{% if result %}
-  <h2>실행 결과</h2>
-  {% if result.error %}
-    <div class="banner blocked">{{ result.error }}</div>
-  {% else %}
-    {% if result.using_overrides %}
-    <div class="banner warn">
-      🧪 <b>탐색적 시뮬레이션(what-if) 모드</b> — 다음 가정값을 대시보드에서 직접 수정해 계산했습니다
-      (기준 파일의 검증된 값이 아니라, 근거 미확인 임시값입니다):
-      <b>{{ result.overridden_keys | join(', ') }}</b>.
-      이 결과는 <b>확대 권고의 근거로 사용할 수 없습니다.</b>
-    </div>
-    {% endif %}
-
-    {% if result.validation_issues or result.reconcile_errors %}
-    <div class="banner blocked">
-      🚫 추가로 구조적 검증 실패가 발견되었습니다 (입력값 자체가 유효 범위를 벗어났거나 참조가 깨짐).
-      {% for issue in result.validation_issues %}<br>· [{{ issue.rule }}] {{ issue.message }}{% endfor %}
-      {% for err in result.reconcile_errors %}<br>· [reconciliation] {{ err }}{% endfor %}
-    </div>
-    {% elif not result.using_overrides %}
-    <div class="banner ok">✅ 검증 통과 — 계산 결과 정합성 확인됨 (재계산 오차 허용범위 이내). 확대 권고 논의에 사용 가능합니다.</div>
-    {% else %}
-    <div class="banner ok">그 외 구조적 검증(범위/참조/재계산 정합성)은 모두 통과했습니다.</div>
-    {% endif %}
-
-    <h2>핵심 손익 지표 — {{ result.focus_scenario.label }}</h2>
-    <div class="two-col">
-      <div>
-        <h3 style="margin-bottom:4px;">기준(Base) 가정 {% if result.base_as_of %}(기준일 {{ result.base_as_of }}){% endif %}</h3>
-        <div class="kpi-grid">
-          <div class="kpi-card"><div class="label">야쿠헌터즈 매출</div><div class="value">{{ result.focus_base.treatment.revenue_total|won }}</div></div>
-          <div class="kpi-card"><div class="label">일반판촉 매출</div><div class="value">{{ result.focus_base.control.revenue_total|won }}</div></div>
-          <div class="kpi-card"><div class="label">야쿠헌터즈 이익(초기비용 제외)</div><div class="value">{{ result.focus_base.treatment.profit_excl_initial|won }}</div></div>
-          <div class="kpi-card"><div class="label">야쿠헌터즈 이익(초기비용 포함)</div><div class="value">{{ result.focus_base.treatment.profit_incl_initial|won }}</div></div>
-          <div class="kpi-card"><div class="label"><b>증분이익(초기비용 제외)</b></div><div class="value">{{ result.focus_base.incremental_profit_excl_initial|won }}</div></div>
-          <div class="kpi-card"><div class="label"><b>증분이익(초기비용 포함)</b></div><div class="value">{{ result.focus_base.incremental_profit_incl_initial|won }}</div></div>
+      <details class="more-settings">
+        <summary>상세 설정 (세부 비용·가정)</summary>
+        {% for row in detail_rows %}
+        <div class="detail-row">
+          <label class="row-label" for="in_{{ row.key }}">{{ row.label }}</label>
+          {% if row.kind == 'ratio' %}
+          <div class="pct-input-row">
+            <input type="number" step="0.1" min="0" max="100" name="assumption__{{ row.key }}" id="in_{{ row.key }}"
+                   value="{{ row.form_value }}">
+            <span class="unit-suffix">%</span>
+          </div>
+          {% elif row.kind == 'krw' %}
+          <div class="money-input-row">
+            <input type="number" step="100" name="assumption__{{ row.key }}" id="in_{{ row.key }}" value="{{ row.form_value }}">
+            <span class="unit-suffix">원</span>
+          </div>
+          {% else %}
+          <input type="number" step="0.1" name="assumption__{{ row.key }}" id="in_{{ row.key }}" value="{{ row.form_value }}">
+          {% endif %}
+          {% if row.denom %}<p class="denom">{{ row.denom }}</p>{% endif %}
+          <p class="denom">기준값 구분: <span class="badge {{ row.value_type|replace('(', '_')|replace(')', '')|replace(' ', '_') }}">{{ row.value_type }}</span> · {{ row.source }}</p>
         </div>
-      </div>
-      {% if result.focus_compare %}
-      <div>
-        <h3 style="margin-bottom:4px;">비교(Compare) 가정 {% if result.compare_as_of %}(기준일 {{ result.compare_as_of }}){% endif %}</h3>
-        <div class="kpi-grid">
-          <div class="kpi-card"><div class="label">야쿠헌터즈 매출</div><div class="value">{{ result.focus_compare.treatment.revenue_total|won }}</div></div>
-          <div class="kpi-card"><div class="label">일반판촉 매출</div><div class="value">{{ result.focus_compare.control.revenue_total|won }}</div></div>
-          <div class="kpi-card"><div class="label">야쿠헌터즈 이익(초기비용 제외)</div><div class="value">{{ result.focus_compare.treatment.profit_excl_initial|won }}</div></div>
-          <div class="kpi-card"><div class="label">야쿠헌터즈 이익(초기비용 포함)</div><div class="value">{{ result.focus_compare.treatment.profit_incl_initial|won }}</div></div>
-          <div class="kpi-card"><div class="label"><b>증분이익(초기비용 제외)</b></div><div class="value">{{ result.focus_compare.incremental_profit_excl_initial|won }}</div></div>
-          <div class="kpi-card"><div class="label"><b>증분이익(초기비용 포함)</b></div><div class="value">{{ result.focus_compare.incremental_profit_incl_initial|won }}</div></div>
+        {% endfor %}
+      </details>
+
+      <button type="submit" class="run-btn">▶ 계산 실행</button>
+    </form>
+
+    <div>
+      <div class="stale-banner" id="simStaleBanner" hidden>⚠ 입력이 변경되었습니다 — 아래 결과는 이전 입력 기준입니다. 다시 "계산 실행"을 눌러주세요.</div>
+
+      {% if sim_result %}
+        {% if sim_result.error %}
+          <div class="banner blocked">{{ sim_result.error }}</div>
+        {% else %}
+        <div class="results" id="simResults">
+
+          {% if sim_result.using_overrides %}
+          <div class="banner warn">🧪 <b>탐색적 시뮬레이션 모드</b> — 다음 값을 직접 수정했습니다 (근거 미확인 임시값):
+            {{ sim_result.overridden_labels | join(', ') }}. 이 결과는 <b>사업성 검증 완료가 아니며</b>, 확대 권고 근거로 사용할 수 없습니다.</div>
+          {% endif %}
+
+          {% if sim_result.validation_issues or sim_result.reconcile_errors %}
+          <div class="banner blocked">🚫 구조적 검증 실패가 있습니다 (입력 범위 오류 등).
+            {% for issue in sim_result.validation_issues %}<br>· {{ issue.message }}{% endfor %}
+            {% for err in sim_result.reconcile_errors %}<br>· {{ err }}{% endfor %}
+          </div>
+          {% endif %}
+
+          <div class="banner info">ℹ️ 이 결과는 입력된 가정에 기반한 <b>시뮬레이션 추정치</b>입니다. 가상 데이터 기준이며, 사업성이 최종 검증된 것은 아닙니다.</div>
+
+          <div class="kpi-grid">
+            {% set ir = sim_result.incremental_revenue %}
+            <div class="kpi-card {{ 'pos' if ir >= 0 else 'neg' }}">
+              <div class="kpi-label">추가 매출 (야쿠헌터즈 − 일반판촉)</div>
+              <div class="kpi-value">{{ ir|signed_manwon }}</div>
+              <div class="kpi-sub">{{ '매출 증가' if ir >= 0 else '매출 감소' }}</div>
+            </div>
+            {% set pe = sim_result.pnl.incremental_profit_excl_initial %}
+            <div class="kpi-card {{ 'pos' if pe >= 0 else 'neg' }}">
+              <div class="kpi-label">추가 손익 (초기 제작비 제외)</div>
+              <div class="kpi-value">{{ pe|signed_manwon }}</div>
+              <div class="kpi-sub">{{ '이익 (+)' if pe >= 0 else '손실 (−)' }}</div>
+            </div>
+            {% set pi = sim_result.pnl.incremental_profit_incl_initial %}
+            <div class="kpi-card {{ 'pos' if pi >= 0 else 'neg' }}">
+              <div class="kpi-label">추가 손익 (초기 제작비 포함)</div>
+              <div class="kpi-value">{{ pi|signed_manwon }}</div>
+              <div class="kpi-sub">{{ '이익 (+)' if pi >= 0 else '손실 (−)' }}</div>
+            </div>
+            <div class="kpi-card neutral">
+              <div class="kpi-label">증분 CAC (고객 1명 추가 획득 비용)</div>
+              {% if sim_result.incremental_cac is not none %}
+              <div class="kpi-value">{{ sim_result.incremental_cac|won }}</div>
+              <div class="kpi-sub">일반판촉 대비, 고객 1명 더 얻는 데 드는 순증 비용</div>
+              {% else %}
+              <div class="kpi-value">해당 없음</div>
+              <div class="kpi-sub">야쿠헌터즈가 일반판촉보다 신규 고객을 더 못 얻어 계산 불가</div>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="chart-card">
+            <img src="data:image/png;base64,{{ sim_result.chart_b64 }}" alt="시나리오별 손익 비교 그래프">
+            <div class="band-summary">
+              증분이익(초기제작비 제외) —
+              {% for name in band_names %}{{ name }}: {{ sim_result.bands[name].incremental_profit_excl_initial|signed_manwon }}{% if not loop.last %} · {% endif %}{% endfor %}
+            </div>
+          </div>
+
+          <div class="bottom-grid">
+            <div class="panel">
+              <h2>손익에 가장 큰 영향을 주는 변수 TOP 3</h2>
+              <ol class="driver-list">
+                {% for d in sim_result.drivers %}
+                <li><span class="driver-rank">{{ loop.index }}</span><b>{{ d.label }}</b>
+                  <div class="driver-swing">±20% 변동 시 증분이익 변화 폭: {{ (d.max_incremental_profit - d.min_incremental_profit)|manwon }}</div>
+                </li>
+                {% endfor %}
+              </ol>
+            </div>
+            <div class="panel">
+              <h2>이번 계산에 사용한 주요 가정</h2>
+              <div class="overflow-x">
+              <table class="assump-table">
+                <tr><th>항목</th><th>값</th><th>구분</th></tr>
+                {% for row in top_rows %}
+                <tr><td>{{ row.label }}</td><td>{{ row.form_value }}%</td>
+                  <td><span class="badge {{ row.value_type|replace('(', '_')|replace(')', '')|replace(' ', '_') }}">{{ row.value_type if row.key not in sim_result.overridden_keys else '가정(대시보드 수정)' }}</span></td></tr>
+                {% endfor %}
+                <tr><td>보상비</td><td>{{ sim_result.reward_level.reward_cost_per_conversion|won }}</td>
+                  <td><span class="badge {{ sim_result.reward_level.value_type|replace('(', '_')|replace(')', '')|replace(' ', '_') }}">{{ sim_result.reward_level.value_type }}</span></td></tr>
+              </table>
+              </div>
+              <p class="caveat">※ 전체 가정 목록과 출처는 왼쪽 "상세 설정"에서 확인할 수 있습니다.</p>
+            </div>
+          </div>
         </div>
-        <p style="font-size:0.85rem;">
-          파일럿 반영에 따른 증분이익(초기비용 제외) 변화:
-          <b>{{ (result.focus_compare.incremental_profit_excl_initial - result.focus_base.incremental_profit_excl_initial)|won }}</b>
-        </p>
-      </div>
+        {% endif %}
+      {% else %}
+        <div class="banner info">왼쪽에서 조건을 입력하고 "계산 실행"을 누르면 결과가 여기에 표시됩니다.</div>
       {% endif %}
     </div>
+  </div>
+</section>
 
-    <h2>시나리오 비교 그래프 (전체 {{ scenarios|length }}개 시나리오)</h2>
-    <img src="data:image/png;base64,{{ result.chart_b64 }}" style="max-width:100%;border:1px solid #ddd;border-radius:8px;background:#fff;">
-    <p style="font-size:0.85rem;">증분이익(초기비용 제외) 상위 시나리오: {{ result.ranked_labels | join(' > ') }}</p>
+<!-- =========================== TAB 2: 파일럿 실적 비교 =========================== -->
+<section id="tab-pilot" hidden>
+  <div class="panel">
+    <h2>파일럿 실적 업로드</h2>
+    <form id="pilotForm" method="post" enctype="multipart/form-data">
+      <input type="hidden" name="form_name" value="pilot">
+      <input type="hidden" name="assumptions_file" id="mirror_assumptions_file" value="{{ form_state.assumptions_file }}">
+      <input type="hidden" name="region_id" id="mirror_region_id" value="{{ form_state.region_id }}">
+      <input type="hidden" name="fm_count" id="mirror_fm_count" value="{{ form_state.fm_count }}">
+      <input type="hidden" name="reward_cost" id="mirror_reward_cost" value="{{ form_state.reward_cost }}">
+
+      <div class="upload-grid">
+        <div>
+          <label class="field-label" for="conversion_file">전환(첫 구매) 실적 CSV</label>
+          <input type="file" name="conversion_file" id="conversion_file" accept=".csv">
+          <p class="csv-hint">필요 컬럼: customer_id, region_id, group(treatment/control), segment(tourist/domestic), contact_date, converted(Y/N), conversion_window_end_date</p>
+        </div>
+        <div>
+          <label class="field-label" for="repeat_file">재구매 실적 CSV</label>
+          <input type="file" name="repeat_file" id="repeat_file" accept=".csv">
+          <p class="csv-hint">필요 컬럼: customer_id, region_id, group, acquisition_date, repeat_orders_count, repeat_window_end_date</p>
+        </div>
+      </div>
+
+      <label class="field-label" for="as_of_date">분석 기준일 (관찰기간 완료 판정 기준)</label>
+      <input type="date" name="as_of_date" id="as_of_date" value="{{ pilot_as_of }}" style="max-width:220px;">
+
+      <p class="caveat">비교에는 현재 "시뮬레이터" 탭에 설정된 지역·참여인원·보상비 조건이 그대로 사용됩니다.
+        (현재: {{ regions[form_state.region_id].region_name if form_state.region_id in regions else '-' }} ·
+        {{ form_state.fm_count }}명 · {{ form_state.reward_cost }}원/건)</p>
+
+      <button type="submit" class="run-btn" style="max-width:280px;">📤 파일럿 실적 반영하기</button>
+    </form>
+  </div>
+
+  <div style="height:18px;"></div>
+
+  {% if pilot_result %}
+    {% if pilot_result.error %}
+      <div class="banner blocked">{{ pilot_result.error }}</div>
+    {% else %}
+    <div class="results" id="pilotResults">
+      <div class="banner info">기준일 <b>{{ pilot_result.as_of }}</b> 기준, 관찰기간이 완료된 고객 데이터만 반영했습니다.
+        같은 파일을 다시 올려도 고객 단위로 중복 반영되지 않습니다.</div>
+
+      <div class="panel">
+        <h2>예상(사전 가정) vs 실적(파일럿) 비교</h2>
+        <div class="overflow-x">
+        <table class="assump-table">
+          <tr><th>항목</th><th>예상(가정)</th><th>실적(파일럿)</th><th>표본수</th><th>반영 여부</th></tr>
+          {% for row in pilot_result.rate_rows %}
+          <tr>
+            <td>{{ row.label }}</td>
+            <td>{{ row.old_display if row.old_display is not none else '-' }}</td>
+            <td>{{ row.new_display if row.new_display is not none else '표본없음' }}</td>
+            <td>{{ row.sample_size }}</td>
+            <td>{% if row.applied %}<span class="badge 실제">반영됨</span>{% else %}<span class="badge 가정">보류</span>{% endif %}</td>
+          </tr>
+          {% endfor %}
+        </table>
+        </div>
+        {% if pilot_result.warnings %}
+        <p class="caveat">{% for w in pilot_result.warnings %}⚠ {{ w }}<br>{% endfor %}</p>
+        {% endif %}
+      </div>
+
+      {% if pilot_result.comparison %}
+      {% set c = pilot_result.comparison %}
+      <div class="panel" style="margin-top:18px;">
+        <h2>{{ c.scenario.label }} — 손익 비교</h2>
+        <div class="compare-grid">
+          <div class="kpi-card neutral">
+            <div class="kpi-label">예상(사전 가정) 증분이익 · 초기제작비 제외</div>
+            <div class="kpi-value">{{ c.before.incremental_profit_excl_initial|signed_manwon }}</div>
+          </div>
+          <div class="kpi-card {{ 'pos' if c.after.incremental_profit_excl_initial >= 0 else 'neg' }}">
+            <div class="kpi-label">실적(파일럿 반영) 증분이익 · 초기제작비 제외</div>
+            <div class="kpi-value">{{ c.after.incremental_profit_excl_initial|signed_manwon }}</div>
+          </div>
+        </div>
+        <p class="band-summary">파일럿 반영에 따른 변화: {{ (c.after.incremental_profit_excl_initial - c.before.incremental_profit_excl_initial)|signed_manwon }}</p>
+      </div>
+      {% else %}
+      <div class="banner warn">표본이 충분한 항목이 없어 가정이 갱신되지 않았습니다 — 손익 비교는 생략합니다.</div>
+      {% endif %}
+    </div>
+    {% endif %}
   {% endif %}
-{% endif %}
+</section>
+
+</div>
 
 <script>
-const SCENARIO_PRESETS = {{ scenario_presets_json | safe }};
-function applyPreset(scenarioId) {
-  if (!scenarioId || !(scenarioId in SCENARIO_PRESETS)) return;
-  const p = SCENARIO_PRESETS[scenarioId];
-  document.getElementById('region_id').value = p.region_id;
-  document.getElementById('fm_count').value = p.fm_count;
-  document.getElementById('reward_level_id').value = p.reward_level_id;
+const REGION_INFO = {{ region_info_json | safe }};
+const REWARD_PRESETS = {{ reward_presets_json | safe }};
+
+function formatWon(v) { return Math.round(v).toLocaleString('ko-KR') + '원'; }
+
+function onRegionChange() {
+  const sel = document.getElementById('region_id');
+  const info = REGION_INFO[sel.value];
+  const hint = document.getElementById('regionHint');
+  if (info) {
+    hint.textContent = `관광객 비중 ${Math.round(info.tourist_share*100)}% · FM 1인당 접촉 가능 고객 ${info.contacted_per_fm}명 · FM 1인당 고정운영비 ${formatWon(info.fixed_cost_per_fm)}`;
+  }
 }
+
+function buildRewardPresets() {
+  const row = document.getElementById('rewardPresetRow');
+  row.innerHTML = '';
+  Object.keys(REWARD_PRESETS).forEach(id => {
+    const p = REWARD_PRESETS[id];
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'quick-btn';
+    btn.textContent = `${p.label} (${formatWon(p.cost)})`;
+    btn.onclick = () => { document.getElementById('reward_cost').value = p.cost; };
+    row.appendChild(btn);
+  });
+}
+
+function showTab(name) {
+  document.getElementById('tab-simulate').hidden = (name !== 'simulate');
+  document.getElementById('tab-pilot').hidden = (name !== 'pilot');
+  document.getElementById('tabbtn-simulate').classList.toggle('active', name === 'simulate');
+  document.getElementById('tabbtn-pilot').classList.toggle('active', name === 'pilot');
+}
+
+function setupStaleTracking(formId, resultsId, bannerId) {
+  const form = document.getElementById(formId);
+  const results = document.getElementById(resultsId);
+  const banner = document.getElementById(bannerId);
+  if (!form || !results) return;
+  const snapshot = () => new URLSearchParams(new FormData(form)).toString();
+  const baseline = snapshot();
+  const check = () => {
+    if (snapshot() !== baseline) {
+      results.classList.add('stale');
+      if (banner) banner.hidden = false;
+    }
+  };
+  form.addEventListener('input', check);
+  form.addEventListener('change', check);
+}
+
+function mirrorSimFieldsIntoPilotForm() {
+  const map = [['assumptions_file','mirror_assumptions_file'], ['region_id','mirror_region_id'],
+               ['fm_count','mirror_fm_count'], ['reward_cost','mirror_reward_cost']];
+  map.forEach(([srcId, dstId]) => {
+    const src = document.getElementById(srcId);
+    const dst = document.getElementById(dstId);
+    if (!src || !dst) return;
+    const sync = () => { dst.value = src.value; };
+    sync();
+    src.addEventListener('input', sync);
+    src.addEventListener('change', sync);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  onRegionChange();
+  buildRewardPresets();
+  mirrorSimFieldsIntoPilotForm();
+  setupStaleTracking('simForm', 'simResults', 'simStaleBanner');
+  showTab('{{ active_tab }}');
+});
 </script>
 
 </body>
