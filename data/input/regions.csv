@@ -1,0 +1,4 @@
+region_id,region_name,tourist_share,contacted_customers_per_fm,fixed_operation_cost_per_fm,value_type,source,period
+jeju,제주,0.55,120,900000,가정,지역 운영 기획안 초안 (더미),2026-08
+seoul,서울,0.15,150,1100000,가정,지역 운영 기획안 초안 (더미),2026-08
+busan,부산,0.30,130,950000,가정,지역 운영 기획안 초안 (더미),2026-08

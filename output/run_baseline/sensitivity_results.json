@@ -1,0 +1,572 @@
+{
+  "jeju_l_high": {
+    "conversion_rate_domestic_treatment": [
+      {
+        "vary_key": "conversion_rate_domestic_treatment",
+        "delta": -0.2,
+        "value": 0.128,
+        "incremental_profit_excl_initial": 1393837.824000001,
+        "incremental_profit_incl_initial": -13606162.175999999,
+        "treatment_profit_excl_initial": -9674741.375999998,
+        "control_profit_excl_initial": -11068579.2
+      },
+      {
+        "vary_key": "conversion_rate_domestic_treatment",
+        "delta": -0.1,
+        "value": 0.14400000000000002,
+        "incremental_profit_excl_initial": 2092945.1519999988,
+        "incremental_profit_incl_initial": -12907054.848000001,
+        "treatment_profit_excl_initial": -8975634.048,
+        "control_profit_excl_initial": -11068579.2
+      },
+      {
+        "vary_key": "conversion_rate_domestic_treatment",
+        "delta": 0.0,
+        "value": 0.16,
+        "incremental_profit_excl_initial": 2792052.4799999986,
+        "incremental_profit_incl_initial": -12207947.52,
+        "treatment_profit_excl_initial": -8276526.720000001,
+        "control_profit_excl_initial": -11068579.2
+      },
+      {
+        "vary_key": "conversion_rate_domestic_treatment",
+        "delta": 0.1,
+        "value": 0.17600000000000002,
+        "incremental_profit_excl_initial": 3491159.808000002,
+        "incremental_profit_incl_initial": -11508840.191999998,
+        "treatment_profit_excl_initial": -7577419.391999997,
+        "control_profit_excl_initial": -11068579.2
+      },
+      {
+        "vary_key": "conversion_rate_domestic_treatment",
+        "delta": 0.2,
+        "value": 0.192,
+        "incremental_profit_excl_initial": 4190267.135999998,
+        "incremental_profit_incl_initial": -10809732.864000004,
+        "treatment_profit_excl_initial": -6878312.064000001,
+        "control_profit_excl_initial": -11068579.2
+      }
+    ],
+    "conversion_rate_tourist_treatment": [
+      {
+        "vary_key": "conversion_rate_tourist_treatment",
+        "delta": -0.2,
+        "value": 0.072,
+        "incremental_profit_excl_initial": 2245572.4799999986,
+        "incremental_profit_incl_initial": -12754427.52,
+        "treatment_profit_excl_initial": -8823006.72,
+        "control_profit_excl_initial": -11068579.2
+      },
+      {
+        "vary_key": "conversion_rate_tourist_treatment",
+        "delta": -0.1,
+        "value": 0.081,
+        "incremental_profit_excl_initial": 2518812.4799999986,
+        "incremental_profit_incl_initial": -12481187.52,
+        "treatment_profit_excl_initial": -8549766.72,
+        "control_profit_excl_initial": -11068579.2
+      },
+      {
+        "vary_key": "conversion_rate_tourist_treatment",
+        "delta": 0.0,
+        "value": 0.09,
+        "incremental_profit_excl_initial": 2792052.4799999986,
+        "incremental_profit_incl_initial": -12207947.52,
+        "treatment_profit_excl_initial": -8276526.720000001,
+        "control_profit_excl_initial": -11068579.2
+      },
+      {
+        "vary_key": "conversion_rate_tourist_treatment",
+        "delta": 0.1,
+        "value": 0.099,
+        "incremental_profit_excl_initial": 3065292.4799999986,
+        "incremental_profit_incl_initial": -11934707.52,
+        "treatment_profit_excl_initial": -8003286.720000001,
+        "control_profit_excl_initial": -11068579.2
+      },
+      {
+        "vary_key": "conversion_rate_tourist_treatment",
+        "delta": 0.2,
+        "value": 0.108,
+        "incremental_profit_excl_initial": 3338532.4799999986,
+        "incremental_profit_incl_initial": -11661467.52,
+        "treatment_profit_excl_initial": -7730046.720000001,
+        "control_profit_excl_initial": -11068579.2
+      }
+    ],
+    "repeat_purchase_rate_domestic": [
+      {
+        "vary_key": "repeat_purchase_rate_domestic",
+        "delta": -0.2,
+        "value": 0.17600000000000002,
+        "incremental_profit_excl_initial": 2615049.984000003,
+        "incremental_profit_incl_initial": -12384950.015999995,
+        "treatment_profit_excl_initial": -8748533.375999996,
+        "control_profit_excl_initial": -11363583.36
+      },
+      {
+        "vary_key": "repeat_purchase_rate_domestic",
+        "delta": -0.1,
+        "value": 0.198,
+        "incremental_profit_excl_initial": 2703551.231999999,
+        "incremental_profit_incl_initial": -12296448.768000003,
+        "treatment_profit_excl_initial": -8512530.047999999,
+        "control_profit_excl_initial": -11216081.279999997
+      },
+      {
+        "vary_key": "repeat_purchase_rate_domestic",
+        "delta": 0.0,
+        "value": 0.22,
+        "incremental_profit_excl_initial": 2792052.4799999986,
+        "incremental_profit_incl_initial": -12207947.52,
+        "treatment_profit_excl_initial": -8276526.720000001,
+        "control_profit_excl_initial": -11068579.2
+      },
+      {
+        "vary_key": "repeat_purchase_rate_domestic",
+        "delta": 0.1,
+        "value": 0.24200000000000002,
+        "incremental_profit_excl_initial": 2880553.728000002,
+        "incremental_profit_incl_initial": -12119446.271999996,
+        "treatment_profit_excl_initial": -8040523.391999999,
+        "control_profit_excl_initial": -10921077.120000001
+      },
+      {
+        "vary_key": "repeat_purchase_rate_domestic",
+        "delta": 0.2,
+        "value": 0.264,
+        "incremental_profit_excl_initial": 2969054.9760000017,
+        "incremental_profit_incl_initial": -12030945.023999998,
+        "treatment_profit_excl_initial": -7804520.063999999,
+        "control_profit_excl_initial": -10773575.040000001
+      }
+    ],
+    "avg_repeat_orders_per_repeat_customer_domestic": [
+      {
+        "vary_key": "avg_repeat_orders_per_repeat_customer_domestic",
+        "delta": -0.2,
+        "value": 1.2800000000000002,
+        "incremental_profit_excl_initial": 2615049.984000003,
+        "incremental_profit_incl_initial": -12384950.015999995,
+        "treatment_profit_excl_initial": -8748533.375999996,
+        "control_profit_excl_initial": -11363583.36
+      },
+      {
+        "vary_key": "avg_repeat_orders_per_repeat_customer_domestic",
+        "delta": -0.1,
+        "value": 1.4400000000000002,
+        "incremental_profit_excl_initial": 2703551.231999999,
+        "incremental_profit_incl_initial": -12296448.768000003,
+        "treatment_profit_excl_initial": -8512530.047999999,
+        "control_profit_excl_initial": -11216081.279999997
+      },
+      {
+        "vary_key": "avg_repeat_orders_per_repeat_customer_domestic",
+        "delta": 0.0,
+        "value": 1.6,
+        "incremental_profit_excl_initial": 2792052.4799999986,
+        "incremental_profit_incl_initial": -12207947.52,
+        "treatment_profit_excl_initial": -8276526.720000001,
+        "control_profit_excl_initial": -11068579.2
+      },
+      {
+        "vary_key": "avg_repeat_orders_per_repeat_customer_domestic",
+        "delta": 0.1,
+        "value": 1.7600000000000002,
+        "incremental_profit_excl_initial": 2880553.728000002,
+        "incremental_profit_incl_initial": -12119446.271999996,
+        "treatment_profit_excl_initial": -8040523.391999999,
+        "control_profit_excl_initial": -10921077.120000001
+      },
+      {
+        "vary_key": "avg_repeat_orders_per_repeat_customer_domestic",
+        "delta": 0.2,
+        "value": 1.92,
+        "incremental_profit_excl_initial": 2969054.9760000017,
+        "incremental_profit_incl_initial": -12030945.023999998,
+        "treatment_profit_excl_initial": -7804520.063999999,
+        "control_profit_excl_initial": -10773575.040000001
+      }
+    ]
+  },
+  "busan_m_mid": {
+    "conversion_rate_domestic_treatment": [
+      {
+        "vary_key": "conversion_rate_domestic_treatment",
+        "delta": -0.2,
+        "value": 0.128,
+        "incremental_profit_excl_initial": 1332979.648,
+        "incremental_profit_incl_initial": -13667020.352,
+        "treatment_profit_excl_initial": -3373878.7520000003,
+        "control_profit_excl_initial": -4706858.4
+      },
+      {
+        "vary_key": "conversion_rate_domestic_treatment",
+        "delta": -0.1,
+        "value": 0.14400000000000002,
+        "incremental_profit_excl_initial": 1980282.3039999995,
+        "incremental_profit_incl_initial": -13019717.696,
+        "treatment_profit_excl_initial": -2726576.096000001,
+        "control_profit_excl_initial": -4706858.4
+      },
+      {
+        "vary_key": "conversion_rate_domestic_treatment",
+        "delta": 0.0,
+        "value": 0.16,
+        "incremental_profit_excl_initial": 2627584.960000001,
+        "incremental_profit_incl_initial": -12372415.039999997,
+        "treatment_profit_excl_initial": -2079273.4399999995,
+        "control_profit_excl_initial": -4706858.4
+      },
+      {
+        "vary_key": "conversion_rate_domestic_treatment",
+        "delta": 0.1,
+        "value": 0.17600000000000002,
+        "incremental_profit_excl_initial": 3274887.6160000023,
+        "incremental_profit_incl_initial": -11725112.383999998,
+        "treatment_profit_excl_initial": -1431970.7839999981,
+        "control_profit_excl_initial": -4706858.4
+      },
+      {
+        "vary_key": "conversion_rate_domestic_treatment",
+        "delta": 0.2,
+        "value": 0.192,
+        "incremental_profit_excl_initial": 3922190.272,
+        "incremental_profit_incl_initial": -11077809.728,
+        "treatment_profit_excl_initial": -784668.1280000005,
+        "control_profit_excl_initial": -4706858.4
+      }
+    ],
+    "conversion_rate_tourist_treatment": [
+      {
+        "vary_key": "conversion_rate_tourist_treatment",
+        "delta": -0.2,
+        "value": 0.072,
+        "incremental_profit_excl_initial": 2438044.960000001,
+        "incremental_profit_incl_initial": -12561955.039999997,
+        "treatment_profit_excl_initial": -2268813.4399999995,
+        "control_profit_excl_initial": -4706858.4
+      },
+      {
+        "vary_key": "conversion_rate_tourist_treatment",
+        "delta": -0.1,
+        "value": 0.081,
+        "incremental_profit_excl_initial": 2532814.960000001,
+        "incremental_profit_incl_initial": -12467185.039999997,
+        "treatment_profit_excl_initial": -2174043.4399999995,
+        "control_profit_excl_initial": -4706858.4
+      },
+      {
+        "vary_key": "conversion_rate_tourist_treatment",
+        "delta": 0.0,
+        "value": 0.09,
+        "incremental_profit_excl_initial": 2627584.960000001,
+        "incremental_profit_incl_initial": -12372415.039999997,
+        "treatment_profit_excl_initial": -2079273.4399999995,
+        "control_profit_excl_initial": -4706858.4
+      },
+      {
+        "vary_key": "conversion_rate_tourist_treatment",
+        "delta": 0.1,
+        "value": 0.099,
+        "incremental_profit_excl_initial": 2722354.960000001,
+        "incremental_profit_incl_initial": -12277645.039999997,
+        "treatment_profit_excl_initial": -1984503.4399999995,
+        "control_profit_excl_initial": -4706858.4
+      },
+      {
+        "vary_key": "conversion_rate_tourist_treatment",
+        "delta": 0.2,
+        "value": 0.108,
+        "incremental_profit_excl_initial": 2817124.960000001,
+        "incremental_profit_incl_initial": -12182875.039999997,
+        "treatment_profit_excl_initial": -1889733.4399999995,
+        "control_profit_excl_initial": -4706858.4
+      }
+    ],
+    "repeat_purchase_rate_domestic": [
+      {
+        "vary_key": "repeat_purchase_rate_domestic",
+        "delta": -0.2,
+        "value": 0.17600000000000002,
+        "incremental_profit_excl_initial": 2478443.9679999994,
+        "incremental_profit_incl_initial": -12521556.032000002,
+        "treatment_profit_excl_initial": -2476982.7520000003,
+        "control_profit_excl_initial": -4955426.72
+      },
+      {
+        "vary_key": "repeat_purchase_rate_domestic",
+        "delta": -0.1,
+        "value": 0.198,
+        "incremental_profit_excl_initial": 2553014.4639999997,
+        "incremental_profit_incl_initial": -12446985.536,
+        "treatment_profit_excl_initial": -2278128.096000001,
+        "control_profit_excl_initial": -4831142.5600000005
+      },
+      {
+        "vary_key": "repeat_purchase_rate_domestic",
+        "delta": 0.0,
+        "value": 0.22,
+        "incremental_profit_excl_initial": 2627584.960000001,
+        "incremental_profit_incl_initial": -12372415.039999997,
+        "treatment_profit_excl_initial": -2079273.4399999995,
+        "control_profit_excl_initial": -4706858.4
+      },
+      {
+        "vary_key": "repeat_purchase_rate_domestic",
+        "delta": 0.1,
+        "value": 0.24200000000000002,
+        "incremental_profit_excl_initial": 2702155.4560000002,
+        "incremental_profit_incl_initial": -12297844.544000002,
+        "treatment_profit_excl_initial": -1880418.784,
+        "control_profit_excl_initial": -4582574.24
+      },
+      {
+        "vary_key": "repeat_purchase_rate_domestic",
+        "delta": 0.2,
+        "value": 0.264,
+        "incremental_profit_excl_initial": 2776725.9519999996,
+        "incremental_profit_incl_initial": -12223274.048,
+        "treatment_profit_excl_initial": -1681564.1279999986,
+        "control_profit_excl_initial": -4458290.079999998
+      }
+    ],
+    "avg_repeat_orders_per_repeat_customer_domestic": [
+      {
+        "vary_key": "avg_repeat_orders_per_repeat_customer_domestic",
+        "delta": -0.2,
+        "value": 1.2800000000000002,
+        "incremental_profit_excl_initial": 2478443.9679999994,
+        "incremental_profit_incl_initial": -12521556.032000002,
+        "treatment_profit_excl_initial": -2476982.7520000003,
+        "control_profit_excl_initial": -4955426.72
+      },
+      {
+        "vary_key": "avg_repeat_orders_per_repeat_customer_domestic",
+        "delta": -0.1,
+        "value": 1.4400000000000002,
+        "incremental_profit_excl_initial": 2553014.4639999997,
+        "incremental_profit_incl_initial": -12446985.536,
+        "treatment_profit_excl_initial": -2278128.096000001,
+        "control_profit_excl_initial": -4831142.5600000005
+      },
+      {
+        "vary_key": "avg_repeat_orders_per_repeat_customer_domestic",
+        "delta": 0.0,
+        "value": 1.6,
+        "incremental_profit_excl_initial": 2627584.960000001,
+        "incremental_profit_incl_initial": -12372415.039999997,
+        "treatment_profit_excl_initial": -2079273.4399999995,
+        "control_profit_excl_initial": -4706858.4
+      },
+      {
+        "vary_key": "avg_repeat_orders_per_repeat_customer_domestic",
+        "delta": 0.1,
+        "value": 1.7600000000000002,
+        "incremental_profit_excl_initial": 2702155.4560000002,
+        "incremental_profit_incl_initial": -12297844.544000002,
+        "treatment_profit_excl_initial": -1880418.784,
+        "control_profit_excl_initial": -4582574.24
+      },
+      {
+        "vary_key": "avg_repeat_orders_per_repeat_customer_domestic",
+        "delta": 0.2,
+        "value": 1.92,
+        "incremental_profit_excl_initial": 2776725.9519999996,
+        "incremental_profit_incl_initial": -12223274.048,
+        "treatment_profit_excl_initial": -1681564.1279999986,
+        "control_profit_excl_initial": -4458290.079999998
+      }
+    ]
+  },
+  "seoul_m_high": {
+    "conversion_rate_domestic_treatment": [
+      {
+        "vary_key": "conversion_rate_domestic_treatment",
+        "delta": -0.2,
+        "value": 0.128,
+        "incremental_profit_excl_initial": 818836.3200000012,
+        "incremental_profit_incl_initial": -14181163.68,
+        "treatment_profit_excl_initial": -3931569.679999998,
+        "control_profit_excl_initial": -4750405.999999999
+      },
+      {
+        "vary_key": "conversion_rate_domestic_treatment",
+        "delta": -0.1,
+        "value": 0.14400000000000002,
+        "incremental_profit_excl_initial": 1644171.3600000003,
+        "incremental_profit_incl_initial": -13355828.64,
+        "treatment_profit_excl_initial": -3106234.6399999987,
+        "control_profit_excl_initial": -4750405.999999999
+      },
+      {
+        "vary_key": "conversion_rate_domestic_treatment",
+        "delta": 0.0,
+        "value": 0.16,
+        "incremental_profit_excl_initial": 2469506.3999999994,
+        "incremental_profit_incl_initial": -12530493.600000001,
+        "treatment_profit_excl_initial": -2280899.5999999996,
+        "control_profit_excl_initial": -4750405.999999999
+      },
+      {
+        "vary_key": "conversion_rate_domestic_treatment",
+        "delta": 0.1,
+        "value": 0.17600000000000002,
+        "incremental_profit_excl_initial": 3294841.4400000023,
+        "incremental_profit_incl_initial": -11705158.559999999,
+        "treatment_profit_excl_initial": -1455564.5599999968,
+        "control_profit_excl_initial": -4750405.999999999
+      },
+      {
+        "vary_key": "conversion_rate_domestic_treatment",
+        "delta": 0.2,
+        "value": 0.192,
+        "incremental_profit_excl_initial": 4120176.4800000014,
+        "incremental_profit_incl_initial": -10879823.52,
+        "treatment_profit_excl_initial": -630229.5199999977,
+        "control_profit_excl_initial": -4750405.999999999
+      }
+    ],
+    "conversion_rate_tourist_treatment": [
+      {
+        "vary_key": "conversion_rate_tourist_treatment",
+        "delta": -0.2,
+        "value": 0.072,
+        "incremental_profit_excl_initial": 2376356.3999999994,
+        "incremental_profit_incl_initial": -12623643.600000001,
+        "treatment_profit_excl_initial": -2374049.5999999996,
+        "control_profit_excl_initial": -4750405.999999999
+      },
+      {
+        "vary_key": "conversion_rate_tourist_treatment",
+        "delta": -0.1,
+        "value": 0.081,
+        "incremental_profit_excl_initial": 2422931.3999999994,
+        "incremental_profit_incl_initial": -12577068.600000001,
+        "treatment_profit_excl_initial": -2327474.5999999996,
+        "control_profit_excl_initial": -4750405.999999999
+      },
+      {
+        "vary_key": "conversion_rate_tourist_treatment",
+        "delta": 0.0,
+        "value": 0.09,
+        "incremental_profit_excl_initial": 2469506.3999999994,
+        "incremental_profit_incl_initial": -12530493.600000001,
+        "treatment_profit_excl_initial": -2280899.5999999996,
+        "control_profit_excl_initial": -4750405.999999999
+      },
+      {
+        "vary_key": "conversion_rate_tourist_treatment",
+        "delta": 0.1,
+        "value": 0.099,
+        "incremental_profit_excl_initial": 2516081.3999999994,
+        "incremental_profit_incl_initial": -12483918.600000001,
+        "treatment_profit_excl_initial": -2234324.5999999996,
+        "control_profit_excl_initial": -4750405.999999999
+      },
+      {
+        "vary_key": "conversion_rate_tourist_treatment",
+        "delta": 0.2,
+        "value": 0.108,
+        "incremental_profit_excl_initial": 2562656.3999999994,
+        "incremental_profit_incl_initial": -12437343.600000001,
+        "treatment_profit_excl_initial": -2187749.5999999996,
+        "control_profit_excl_initial": -4750405.999999999
+      }
+    ],
+    "repeat_purchase_rate_domestic": [
+      {
+        "vary_key": "repeat_purchase_rate_domestic",
+        "delta": -0.2,
+        "value": 0.17600000000000002,
+        "incremental_profit_excl_initial": 2260545.120000001,
+        "incremental_profit_incl_initial": -12739454.879999999,
+        "treatment_profit_excl_initial": -2838129.6799999997,
+        "control_profit_excl_initial": -5098674.800000001
+      },
+      {
+        "vary_key": "repeat_purchase_rate_domestic",
+        "delta": -0.1,
+        "value": 0.198,
+        "incremental_profit_excl_initial": 2365025.7600000016,
+        "incremental_profit_incl_initial": -12634974.24,
+        "treatment_profit_excl_initial": -2559514.6399999987,
+        "control_profit_excl_initial": -4924540.4
+      },
+      {
+        "vary_key": "repeat_purchase_rate_domestic",
+        "delta": 0.0,
+        "value": 0.22,
+        "incremental_profit_excl_initial": 2469506.3999999994,
+        "incremental_profit_incl_initial": -12530493.600000001,
+        "treatment_profit_excl_initial": -2280899.5999999996,
+        "control_profit_excl_initial": -4750405.999999999
+      },
+      {
+        "vary_key": "repeat_purchase_rate_domestic",
+        "delta": 0.1,
+        "value": 0.24200000000000002,
+        "incremental_profit_excl_initial": 2573987.039999999,
+        "incremental_profit_incl_initial": -12426012.960000003,
+        "treatment_profit_excl_initial": -2002284.5600000005,
+        "control_profit_excl_initial": -4576271.6
+      },
+      {
+        "vary_key": "repeat_purchase_rate_domestic",
+        "delta": 0.2,
+        "value": 0.264,
+        "incremental_profit_excl_initial": 2678467.6800000006,
+        "incremental_profit_incl_initial": -12321532.32,
+        "treatment_profit_excl_initial": -1723669.5199999977,
+        "control_profit_excl_initial": -4402137.199999998
+      }
+    ],
+    "avg_repeat_orders_per_repeat_customer_domestic": [
+      {
+        "vary_key": "avg_repeat_orders_per_repeat_customer_domestic",
+        "delta": -0.2,
+        "value": 1.2800000000000002,
+        "incremental_profit_excl_initial": 2260545.120000001,
+        "incremental_profit_incl_initial": -12739454.879999999,
+        "treatment_profit_excl_initial": -2838129.6799999997,
+        "control_profit_excl_initial": -5098674.800000001
+      },
+      {
+        "vary_key": "avg_repeat_orders_per_repeat_customer_domestic",
+        "delta": -0.1,
+        "value": 1.4400000000000002,
+        "incremental_profit_excl_initial": 2365025.7600000016,
+        "incremental_profit_incl_initial": -12634974.24,
+        "treatment_profit_excl_initial": -2559514.6399999987,
+        "control_profit_excl_initial": -4924540.4
+      },
+      {
+        "vary_key": "avg_repeat_orders_per_repeat_customer_domestic",
+        "delta": 0.0,
+        "value": 1.6,
+        "incremental_profit_excl_initial": 2469506.3999999994,
+        "incremental_profit_incl_initial": -12530493.600000001,
+        "treatment_profit_excl_initial": -2280899.5999999996,
+        "control_profit_excl_initial": -4750405.999999999
+      },
+      {
+        "vary_key": "avg_repeat_orders_per_repeat_customer_domestic",
+        "delta": 0.1,
+        "value": 1.7600000000000002,
+        "incremental_profit_excl_initial": 2573987.039999999,
+        "incremental_profit_incl_initial": -12426012.960000003,
+        "treatment_profit_excl_initial": -2002284.5600000005,
+        "control_profit_excl_initial": -4576271.6
+      },
+      {
+        "vary_key": "avg_repeat_orders_per_repeat_customer_domestic",
+        "delta": 0.2,
+        "value": 1.92,
+        "incremental_profit_excl_initial": 2678467.6800000006,
+        "incremental_profit_incl_initial": -12321532.32,
+        "treatment_profit_excl_initial": -1723669.5199999977,
+        "control_profit_excl_initial": -4402137.199999998
+      }
+    ]
+  }
+}

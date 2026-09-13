@@ -1,0 +1,4 @@
+reward_level_id,label,reward_cost_per_conversion,value_type,source,period
+low,저보상,5000,가정,야쿠헌터즈 기획안 초안 (더미),2026-08
+mid,중보상,8000,가정,야쿠헌터즈 기획안 초안 (더미),2026-08
+high,고보상,12000,가정,야쿠헌터즈 기획안 초안 (더미),2026-08

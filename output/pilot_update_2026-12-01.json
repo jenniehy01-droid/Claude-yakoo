@@ -1,0 +1,101 @@
+{
+  "as_of_date": "2026-12-01",
+  "ledger_path": "/home/user/Claude-yakoo/data/ledger/pilot_ledger.json",
+  "ingest_log": [],
+  "rate_estimates": {
+    "conversion_rate_tourist_treatment": {
+      "key": "conversion_rate_tourist_treatment",
+      "value": 0.08888888888888889,
+      "sample_size": 90,
+      "numerator": 8,
+      "as_of_date": "2026-12-01",
+      "sufficient_sample": true
+    },
+    "conversion_rate_tourist_control": {
+      "key": "conversion_rate_tourist_control",
+      "value": 0.10416666666666667,
+      "sample_size": 96,
+      "numerator": 10,
+      "as_of_date": "2026-12-01",
+      "sufficient_sample": true
+    },
+    "conversion_rate_domestic_treatment": {
+      "key": "conversion_rate_domestic_treatment",
+      "value": 0.17435897435897435,
+      "sample_size": 195,
+      "numerator": 34,
+      "as_of_date": "2026-12-01",
+      "sufficient_sample": true
+    },
+    "conversion_rate_domestic_control": {
+      "key": "conversion_rate_domestic_control",
+      "value": 0.1111111111111111,
+      "sample_size": 189,
+      "numerator": 21,
+      "as_of_date": "2026-12-01",
+      "sufficient_sample": true
+    },
+    "repeat_purchase_rate_domestic": {
+      "key": "repeat_purchase_rate_domestic",
+      "value": 0.18181818181818182,
+      "sample_size": 55,
+      "numerator": 10,
+      "as_of_date": "2026-12-01",
+      "sufficient_sample": true
+    },
+    "avg_repeat_orders_per_repeat_customer_domestic": {
+      "key": "avg_repeat_orders_per_repeat_customer_domestic",
+      "value": 1.7,
+      "sample_size": 10,
+      "numerator": 10,
+      "as_of_date": "2026-12-01",
+      "sufficient_sample": false
+    }
+  },
+  "applied_updates": [
+    {
+      "key": "conversion_rate_tourist_treatment",
+      "old_value": 0.09,
+      "old_value_type": "가정",
+      "new_value": 0.08888888888888889,
+      "sample_size": 90,
+      "as_of_date": "2026-12-01"
+    },
+    {
+      "key": "conversion_rate_tourist_control",
+      "old_value": 0.05,
+      "old_value_type": "추정",
+      "new_value": 0.10416666666666667,
+      "sample_size": 96,
+      "as_of_date": "2026-12-01"
+    },
+    {
+      "key": "conversion_rate_domestic_treatment",
+      "old_value": 0.16,
+      "old_value_type": "가정",
+      "new_value": 0.17435897435897435,
+      "sample_size": 195,
+      "as_of_date": "2026-12-01"
+    },
+    {
+      "key": "conversion_rate_domestic_control",
+      "old_value": 0.1,
+      "old_value_type": "추정",
+      "new_value": 0.1111111111111111,
+      "sample_size": 189,
+      "as_of_date": "2026-12-01"
+    },
+    {
+      "key": "repeat_purchase_rate_domestic",
+      "old_value": 0.22,
+      "old_value_type": "가정",
+      "new_value": 0.18181818181818182,
+      "sample_size": 55,
+      "as_of_date": "2026-12-01"
+    }
+  ],
+  "warnings": [
+    "avg_repeat_orders_per_repeat_customer_domestic: 표본 부족(n=10 < 30) — 기존 가정 유지, 참고용으로만 기록"
+  ],
+  "assumptions_out": "data/input/assumptions_after_pilot_2026-12-01.json"
+}

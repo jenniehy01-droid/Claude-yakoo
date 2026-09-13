@@ -1,0 +1,122 @@
+{
+  "as_of_date": "2026-12-01",
+  "assumptions": [
+    {
+      "key": "conversion_rate_domestic_treatment",
+      "value": 0.17435897435897435,
+      "unit": "ratio",
+      "value_type": "실제",
+      "source": "파일럿 실적 집계 (n=195, 전환/성공 34건)",
+      "period": "~2026-12-01 기준 관찰기간 완료 고객",
+      "notes": ""
+    },
+    {
+      "key": "conversion_rate_tourist_treatment",
+      "value": 0.08888888888888889,
+      "unit": "ratio",
+      "value_type": "실제",
+      "source": "파일럿 실적 집계 (n=90, 전환/성공 8건)",
+      "period": "~2026-12-01 기준 관찰기간 완료 고객",
+      "notes": ""
+    },
+    {
+      "key": "conversion_rate_domestic_control",
+      "value": 0.1111111111111111,
+      "unit": "ratio",
+      "value_type": "실제",
+      "source": "파일럿 실적 집계 (n=189, 전환/성공 21건)",
+      "period": "~2026-12-01 기준 관찰기간 완료 고객",
+      "notes": ""
+    },
+    {
+      "key": "conversion_rate_tourist_control",
+      "value": 0.10416666666666667,
+      "unit": "ratio",
+      "value_type": "실제",
+      "source": "파일럿 실적 집계 (n=96, 전환/성공 10건)",
+      "period": "~2026-12-01 기준 관찰기간 완료 고객",
+      "notes": ""
+    },
+    {
+      "key": "avg_order_value_domestic",
+      "value": 42000.0,
+      "unit": "KRW",
+      "value_type": "추정",
+      "source": "제품 평균 판매가 기준 추정 (더미)",
+      "period": "2026-08",
+      "notes": ""
+    },
+    {
+      "key": "avg_order_value_tourist",
+      "value": 35000.0,
+      "unit": "KRW",
+      "value_type": "추정",
+      "source": "관광객 객단가는 국내 대비 낮게 추정 (더미)",
+      "period": "2026-08",
+      "notes": ""
+    },
+    {
+      "key": "repeat_purchase_rate_domestic",
+      "value": 0.18181818181818182,
+      "unit": "ratio",
+      "value_type": "실제",
+      "source": "파일럿 실적 집계 (n=55, 전환/성공 10건)",
+      "period": "~2026-12-01 기준 관찰기간 완료 고객",
+      "notes": ""
+    },
+    {
+      "key": "avg_repeat_orders_per_repeat_customer_domestic",
+      "value": 1.6,
+      "unit": "count",
+      "value_type": "가정",
+      "source": "유사 구독형 상품 벤치마크 가정 (파일럿 반영 전, 더미)",
+      "period": "2026-08",
+      "notes": ""
+    },
+    {
+      "key": "regular_promo_cost_per_conversion",
+      "value": 6000.0,
+      "unit": "KRW",
+      "value_type": "실제",
+      "source": "일반 판촉 채널 정산 단가 (더미 정산 기준)",
+      "period": "2026-07",
+      "notes": ""
+    },
+    {
+      "key": "delivery_cost_per_order_domestic",
+      "value": 3200.0,
+      "unit": "KRW",
+      "value_type": "실제",
+      "source": "물류사 배송 단가표 (더미)",
+      "period": "2026-07",
+      "notes": ""
+    },
+    {
+      "key": "initial_production_cost_program",
+      "value": 15000000.0,
+      "unit": "KRW",
+      "value_type": "가정",
+      "source": "야쿠헌터즈 홍보물/키트 제작 견적 (더미 견적)",
+      "period": "2026-08",
+      "notes": "프로그램 전체 1회성 비용. 지역/시나리오와 무관하게 1회만 발생한다고 가정"
+    },
+    {
+      "key": "conversion_observation_window_days",
+      "value": 7.0,
+      "unit": "days",
+      "value_type": "가정",
+      "source": "전환 확정 기준 내부 정책 (더미)",
+      "period": "2026-08",
+      "notes": ""
+    },
+    {
+      "key": "repeat_purchase_observation_window_days",
+      "value": 90.0,
+      "unit": "days",
+      "value_type": "가정",
+      "source": "재구매 확정 기준 내부 정책 (더미)",
+      "period": "2026-08",
+      "notes": ""
+    }
+  ]
+}

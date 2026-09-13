@@ -1,0 +1,15 @@
+record_id,customer_id,region_id,group,acquisition_date,repeat_orders_count,repeat_window_end_date,source_file
+2026q3-rep-0030,2026q3-jeju-control-0030,jeju,control,2026-08-23,0,2026-11-21,pilot_repeat_purchase_2026q3.csv
+2026q3-rep-0039,2026q3-jeju-control-0039,jeju,control,2026-08-16,1,2026-11-14,pilot_repeat_purchase_2026q3.csv
+2026q3-rep-0042,2026q3-jeju-control-0042,jeju,control,2026-08-28,3,2026-11-26,pilot_repeat_purchase_2026q3.csv
+2026q3-rep-0052,2026q3-seoul-treatment-0052,seoul,treatment,2026-08-26,1,2026-11-24,pilot_repeat_purchase_2026q3.csv
+2026q3-rep-0057,2026q3-seoul-treatment-0057,seoul,treatment,2026-08-24,0,2026-11-22,pilot_repeat_purchase_2026q3.csv
+2026q3-rep-0059,2026q3-seoul-treatment-0059,seoul,treatment,2026-08-20,0,2026-11-18,pilot_repeat_purchase_2026q3.csv
+2026q3-rep-0065,2026q3-seoul-treatment-0065,seoul,treatment,2026-08-23,2,2026-11-21,pilot_repeat_purchase_2026q3.csv
+2026q3-rep-0067,2026q3-seoul-treatment-0067,seoul,treatment,2026-08-16,0,2026-11-14,pilot_repeat_purchase_2026q3.csv
+2026q3-rep-0081,2026q3-seoul-control-0081,seoul,control,2026-08-20,0,2026-11-18,pilot_repeat_purchase_2026q3.csv
+2026q3-rep-0109,2026q3-busan-treatment-0109,busan,treatment,2026-08-17,0,2026-11-15,pilot_repeat_purchase_2026q3.csv
+2026q3-rep-0111,2026q3-busan-treatment-0111,busan,treatment,2026-08-28,0,2026-11-26,pilot_repeat_purchase_2026q3.csv
+2026q3-rep-0127,2026q3-busan-control-0127,busan,control,2026-08-17,0,2026-11-15,pilot_repeat_purchase_2026q3.csv
+2026q3-rep-0132,2026q3-busan-control-0132,busan,control,2026-08-24,0,2026-11-22,pilot_repeat_purchase_2026q3.csv
+2026q3-rep-0139,2026q3-busan-control-0139,busan,control,2026-08-17,0,2026-11-15,pilot_repeat_purchase_2026q3.csv

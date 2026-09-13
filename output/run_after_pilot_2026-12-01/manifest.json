@@ -1,0 +1,15 @@
+{
+  "generated_at": "2026-09-13T08:41:42.983783+00:00",
+  "calc_version": "0.1.0",
+  "random_seed_for_dummy_data": 20260901,
+  "as_of_date": "2026-12-01",
+  "assumptions_version": "assumptions_after_pilot_2026-12-01.json@2026-12-01",
+  "input_file_hashes": {
+    "data/input/assumptions_after_pilot_2026-12-01.json": "5a5f0992c645815c099af7f8d75c3e59107546518c6c74f38ebe98738bf7d028",
+    "data/input/reward_levels.csv": "eb9496f69044e5db710d47cf369c7cc67809a1090d429637d2700244d7a809f7",
+    "data/input/regions.csv": "5b120d1a1dd0ea92e2fe6d4fca6eef78464926e25bfb4a94421c8dc98e06a9a2",
+    "data/input/scenarios.csv": "663401d6d24ba6aa5b285889da7b227f3a05a1c36326c7362db50e4aeb124c7f"
+  },
+  "is_dummy_data": true,
+  "note": "본 실행은 가상(더미) 입력 데이터를 사용한 결과입니다. 실제 사업 수치가 아닙니다."
+}

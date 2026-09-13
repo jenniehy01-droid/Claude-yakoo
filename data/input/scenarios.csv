@@ -1,0 +1,9 @@
+scenario_id,region_id,fm_count,reward_level_id,label
+jeju_s_low,jeju,5,low,제주 소규모-저보상
+jeju_s_mid,jeju,5,mid,제주 소규모-중보상
+jeju_m_mid,jeju,10,mid,제주 중규모-중보상
+jeju_l_high,jeju,20,high,제주 대규모-고보상
+seoul_s_mid,seoul,5,mid,서울 소규모-중보상
+seoul_m_high,seoul,10,high,서울 중규모-고보상
+busan_s_low,busan,5,low,부산 소규모-저보상
+busan_m_mid,busan,10,mid,부산 중규모-중보상
